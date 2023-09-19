@@ -1,0 +1,38 @@
+<!-- objectDetailDataTable.html -->
+<template>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Current_Price</th>
+                <th>Stock_Available</th>
+                <th>Actions</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={objectDetails} for:item="record">
+                <tr key={record.Id}>
+                    <td>
+                        <!-- Display the image using the URL field -->
+                        <img src={record.Logo__c} alt="Image" width="50" height="50" />
+                    </td>
+                    <td>{record.Name}</td>
+                    <td>{record.Current_Price__c}</td>
+                    <td>{record.Stock_Available__c}</td>
+                    <td>
+                        <!-- Add a custom button that triggers a Flow -->
+                        <lightning-button
+                            key={record.Id}
+                            label="BUY Stocks"
+                            variant="success" 
+                            onclick={handleButtonClick}
+                        ></lightning-button>
+                    </td>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</template>

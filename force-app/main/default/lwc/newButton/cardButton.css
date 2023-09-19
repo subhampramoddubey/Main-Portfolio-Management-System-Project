@@ -1,0 +1,14 @@
+/* cardButton.css */
+.card-button {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+    text-align: center;
+    font-weight: bold;
+}

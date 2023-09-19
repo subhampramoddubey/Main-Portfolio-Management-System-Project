@@ -1,0 +1,16 @@
+<!-- cardWithFlowButton.html -->
+<template>
+    <lightning-card title="Card Title" icon-name="utility:inbox">
+        <div class="slds-p-horizontal_small">
+            <p class="slds-text-heading_small">Card Content</p>
+            <!-- Add other card content here -->
+
+            <!-- Create a button that links to the Flow using a URL -->
+            <lightning-button
+                label="Open Flow"
+                variant="brand"
+                onclick={handleButtonClick}
+            ></lightning-button>
+        </div>
+    </lightning-card>
+</template>
