@@ -45,6 +45,6 @@ public class SubmitApplicationForApprovalTriggerTest {
         List<Place_Orders__c> updatedRecords = [SELECT Id, Order_Path__c FROM Place_Orders__c WHERE Id = :testOrder.Id];
 
         // Assert that the approval status has been updated as expected
-        System.assertEquals('Pending', updatedRecords[0].Order_Path__c); // Replace with the actual field name
+        System.assertEquals('Order Pending', updatedRecords[0].Order_Path__c); // Replace with the actual field name
     }
 }

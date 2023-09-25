@@ -43,6 +43,7 @@ public class PreventDuplicateApprovalHandlerClassTest {
         // Assert the handler's behavior
         // Check that order1 was not changed (no errors added)
         System.assertEquals(0, order1.Order_Path__c.length());
+        
 
         // Check that order2 and order3 have errors added
         System.assertEquals('You cannot submit an order for approval when it is already approved.', order2.Order_Path__c);
