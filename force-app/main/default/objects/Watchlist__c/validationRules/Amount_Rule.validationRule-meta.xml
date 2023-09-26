@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amount_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>Current_Price__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>Current_Price__c</errorDisplayField>
+    <errorMessage>Cannot be Less then 0</errorMessage>
+</ValidationRule>

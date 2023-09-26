@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Routing</fullName>
+    <active>true</active>
+    <label>Order Routing</label>
+    <picklistValues>
+        <picklist>Order_Path__c</picklist>
+        <values>
+            <fullName>Order Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
