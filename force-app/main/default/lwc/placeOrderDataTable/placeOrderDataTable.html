@@ -1,0 +1,39 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <h2 class="slds-text-heading_small slds-truncate">Your Investment</h2>
+        </div>
+        <div class="slds-card__body">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                <thead>
+                    <tr>
+                        <th class="slds-is-sortable slds-text-title_bold">Name</th>
+                        <th class="slds-is-sortable slds-text-title_bold">Quantity</th>
+                        <th class="slds-is-sortable slds-text-title_bold">Amount</th>
+                        <th class="slds-text-title_bold">Actions</th>
+                        <!-- Add more columns as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={objectDetails} for:item="record">
+                        <tr key={record.Id}>
+                            <td>{record.Name}</td>
+                            <td>{record.Total_Quantity__c}</td>
+                            <td>{record.Amount_Invested__c}</td>
+                            <td>
+                                <!-- Add a custom button that triggers a Flow -->
+                                <lightning-button
+                                    key={record.Id}
+                                    label="SELL Stocks"
+                                    variant="destructive" 
+                                    onclick={handleButtonClick}
+                                ></lightning-button>
+                            </td>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

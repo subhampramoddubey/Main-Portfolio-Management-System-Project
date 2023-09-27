@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,lightning:actionOverride" access="global" >
+
+
+    <c:newOverrideButton onrecordchange= "{!c.Refresh}" />
+
+</aura:component>

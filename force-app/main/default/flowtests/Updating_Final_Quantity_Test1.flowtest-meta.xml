@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowTest xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flowApiName>Updating_Final_Quantity</flowApiName>
+    <label>Test1</label>
+    <testPoints>
+        <elementApiName>Start</elementApiName>
+        <parameters>
+            <leftValueReference>$Record</leftValueReference>
+            <type>InputTriggeringRecordInitial</type>
+            <value>
+                <sobjectValue>{&quot;attributes&quot;:{&quot;type&quot;:&quot;Place_Orders__c&quot;},&quot;Order_Path__c&quot;:&quot;Order Approved&quot;,&quot;Order_Status__c&quot;:&quot;Approved&quot;,&quot;Type_of_Investment__c&quot;:&quot;Stocks&quot;,&quot;Ticker__c&quot;:&quot;a065j00000IdVj8AAF&quot;,&quot;Quantity__c&quot;:1,&quot;TickerName__c&quot;:&quot;SBI&quot;,&quot;OwnerId&quot;:&quot;0055j000008dsgOAAQ&quot;,&quot;Amount__c&quot;:480,&quot;RecordTypeId&quot;:&quot;0125j000000S2cLAAS&quot;,&quot;Order_Type__c&quot;:&quot;BUY&quot;,&quot;Purchase_Date__c&quot;:&quot;2023-09-15&quot;,&quot;Send_For_Approval__c&quot;:false}</sobjectValue>
+            </value>
+        </parameters>
+    </testPoints>
+    <testPoints>
+        <assertions>
+            <conditions>
+                <leftValueReference>$Record.Quantity__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <errorMessage>Quantity Can not be in negative or 0</errorMessage>
+        </assertions>
+        <elementApiName>Finish</elementApiName>
+    </testPoints>
+</FlowTest>
