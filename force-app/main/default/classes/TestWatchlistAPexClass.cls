@@ -4,6 +4,16 @@ public class TestWatchlistAPexClass {
     // Test method for the getWatchlist method
     @isTest
     static void testGetWatchlist() {
+         Test.startTest();
+
+        // Call the getWatchlist method
+        List<Watchlist__c> result = WatchlistAPexClass.getWatchlist();
+
+        // Assert that the result is null
+        System.assertEquals(null, result);
+
+        Test.stopTest();
+
         // Create test data - Watchlist records
         List<Watchlist__c> watchlistRecords = new List<Watchlist__c>();
         for (Integer i = 0; i < 5; i++) {
