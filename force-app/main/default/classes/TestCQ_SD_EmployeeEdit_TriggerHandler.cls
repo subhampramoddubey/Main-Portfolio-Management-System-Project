@@ -1,14 +1,17 @@
 @isTest
 public class TestCQ_SD_EmployeeEdit_TriggerHandler {
-    
+
+    // Helper method to create a user with a permission set
     private static User createUserWithPermissionSet() {
+        // Retrieve the desired permission set by name
+        PermissionSet psets = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
         
-        PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
+        // Retrieve a profile for the user (replace 'Standard User' with the actual profile name)
+        Profile pro = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
         
-        Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
-        
-        User u = new User(
-            ProfileId = p.Id,
+        // Create a new user with specified attributes
+        User user = new User(
+            ProfileId = pro.Id,
             Alias = 'standt',
             Email = 'standarduser@testorg.com',
             EmailEncodingKey = 'UTF-8',
@@ -18,113 +21,65 @@ public class TestCQ_SD_EmployeeEdit_TriggerHandler {
             TimeZoneSidKey = 'America/Los_Angeles',
             UserName = 'standarduser@testo1rg.com'
         );
-        insert u;
-        
-        // Assign the permission set to the user
+        // Insert the user and assign the permission set
+        insert user;
         PermissionSetAssignment psa = new PermissionSetAssignment(
-            AssigneeId = u.Id,
-            PermissionSetId = ps.Id
+            AssigneeId = user.Id,
+            PermissionSetId = psets.Id
         );
         insert psa;
         
-        return u;
+        return user;  // Return the created user
     }
-    
-    
-    
+
     @isTest
     static void testBeforeUpdate() {
-        System.runAs(createUserWithPermissionSet()){
-            // Insert a Coach record
-            CQ_SD_SQX_Manager__c coach = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application In Progress');
-            insert coach;
-            
-            
-            
-            CQ_SD_SQX_Manager__c coach2 = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application Completed');
-            insert coach2;
-            
-            
-            
-            // Insert a Player record associated with the above coach
-            CQ_SD_SQX_Employee__c player = new CQ_SD_SQX_Employee__c(CQ_SD_SQX_Manager_Lookup__c = coach.Id);
-            insert player;
-            
-            
-            
-            // Update the Player record
+        System.runAs(createUserWithPermissionSet()) {
+            // Insert a Manager record
+            CQ_SD_SQX_Manager__c manager = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application In Progress');
+            insert manager;
+
+            CQ_SD_SQX_Manager__c manager2 = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application Completed');
+            insert manager2;
+
+            // Insert a employee record associated with the above manager
+            CQ_SD_SQX_Employee__c employee = new CQ_SD_SQX_Employee__c(CQ_SD_SQX_Manager_Lookup__c = manager.Id);
+            insert employee;
+
+            // Update the employee record
             Test.startTest();
-            
-            
-            
-            player.CQ_SD_SQX_Manager_Lookup__c = coach2.Id;
-            Database.SaveResult result = Database.update(player, false);
+            employee.CQ_SD_SQX_Manager_Lookup__c = manager2.Id;
+            Database.SaveResult result = Database.update(employee, false);
             Test.stopTest();
-            
-            
-            
+
             // Assert that an error is thrown because the training status is Completed or Closed and changing the parent
             System.assert(!result.isSuccess());
             System.assert(result.getErrors().size() > 0);
-            System.assertEquals('Since the Application is Closed you cannot edit these records!', result.getErrors()[0].getMessage());
+            System.assertEquals('Since the Application is Closed, you cannot edit these records!', result.getErrors()[0].getMessage());
         }
     }
-    
-    
-    /*     @isTest static void testBeforeUpdate() {
-// Prepare test data
-CQ_SD_SQX_Manager__c manager = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application Closed');
-insert manager;
 
-
-
-// Should throw an error when attempting to update a manager with status 'Application Closed'
-Test.startTest();
-manager.CQ_SD_Requirement_Status__c = 'Application In Progress';
-Database.SaveResult result = Database.update(manager, false);
-Test.stopTest();
-
-
-
-System.assert(!result.isSuccess());
-System.assertEquals('Updating the status to Closed is not allowed.', result.getErrors()[0].getMessage());
-}
-*/ 
-    
     @isTest
     static void testAfterMethod() {
-        System.runAs(createUserWithPermissionSet()){
-            // Insert a Coach record
-            CQ_SD_SQX_Manager__c coach = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application In Progress');
-            insert coach;
-            
-            
-            
-            // Insert a Player record associated with the above coach
-            CQ_SD_SQX_Employee__c player = new CQ_SD_SQX_Employee__c(CQ_SD_SQX_Manager_Lookup__c = coach.Id);
-            insert player;
-            
-            
-            
+        System.runAs(createUserWithPermissionSet()) {
+            // Insert a manager record
+            CQ_SD_SQX_Manager__c manager = new CQ_SD_SQX_Manager__c(CQ_SD_Requirement_Status__c = 'Application In Progress');
+            insert manager;
+
+            // Insert a employee record associated with the above manager
+            CQ_SD_SQX_Employee__c employee = new CQ_SD_SQX_Employee__c(CQ_SD_SQX_Manager_Lookup__c = manager.Id);
+            insert employee;
+
             Test.startTest();
-            
-            
-            
+
             // Call the after method
-            CQ_SD_EmployeeEdit_TriggerHandler.handleAfterMethod(new List<CQ_SD_SQX_Employee__c> { player });
-            
-            
-            
+            CQ_SD_EmployeeEdit_TriggerHandler.handleAfterMethod(new List<CQ_SD_SQX_Employee__c> { employee });
+
             Test.stopTest();
-            
-            
-            
-            // Assert that the Coach record's Verification__c field is updated to 'Yes'
-            coach = [SELECT Verification__c FROM CQ_SD_SQX_Manager__c WHERE Id = :coach.Id LIMIT 1];
-            System.assertEquals('Yes', coach.Verification__c);
-            
+
+            // Assert that the manager record's Verification__c field is updated to 'Yes'
+            manager = [SELECT Verification__c FROM CQ_SD_SQX_Manager__c WHERE Id = :manager.Id LIMIT 1];
+            System.assertEquals('Yes', manager.Verification__c);
         }
     }
-    
-    
 }

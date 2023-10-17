@@ -3,14 +3,14 @@ public class CQ_SD_Test_Validation_MAnager {
     
     private static User createUserWithPermissionSet() {
         // Retrieve the desired permission set by name
-        PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
+        PermissionSet psets = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
         
         // Retrieve a profile for the user (replace 'Standard User' with the actual profile name)
-        Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
+        Profile pro = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
         
         // Create a new user with specified attributes
-        User u = new User(
-            ProfileId = p.Id,
+        User user = new User(
+            ProfileId = pro.Id,
             Alias = 'standt',
             Email = 'standarduser@testorg.com',
             EmailEncodingKey = 'UTF-8',
@@ -21,26 +21,26 @@ public class CQ_SD_Test_Validation_MAnager {
             UserName = 'standarduser@testo1rg.com'
         );
         // Insert the user and assign the permission set
-        insert u;
+        insert user;
         PermissionSetAssignment psa = new PermissionSetAssignment(
-            AssigneeId = u.Id,
-            PermissionSetId = ps.Id
+            AssigneeId = user.Id,
+            PermissionSetId = psets.Id
         );
         insert psa;
         
-        return u;  // Return the created user
+        return user;  // Return the created user
     }
     
-    // Test method to validate a custom date validation rule for Coach objects
+    // Test method to validate a custom date validation rule for Manager objects
     @isTest static void testDateCondition() {
         
         System.runAs(createUserWithPermissionSet()) {
             
-            // Create a test Coach record with an intentionally invalid date configuration
-            CQ_SD_SQX_Manager__c testCoach = new CQ_SD_SQX_Manager__c(
+            // Create a test Manager record with an intentionally invalid date configuration
+            CQ_SD_SQX_Manager__c testManager = new CQ_SD_SQX_Manager__c(
                 Name = 'Test Restaurant',
                 CQ_SD_Reporting_Date__c = Date.today(),
-                CQ_SD_Joinning_Date__c = Date.today().addDays(-1) // Making target date 1 day before the initiated date
+                CQ_SD_Joinning_Date__c = Date.today().addDays(-1) // Making Joinning date 1 day before the initiated date
             );
             
             
@@ -51,8 +51,8 @@ public class CQ_SD_Test_Validation_MAnager {
             
             
             try {
-                // Attempt to insert the testCoach record, expecting a validation exception
-                insert testCoach;
+                // Attempt to insert the testManager record, expecting a validation exception
+                insert testManager;
             } catch (System.DmlException e) {
                 expectedException = e;
             }

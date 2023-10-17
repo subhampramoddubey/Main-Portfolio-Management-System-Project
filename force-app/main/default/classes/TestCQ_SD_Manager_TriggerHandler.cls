@@ -1,17 +1,18 @@
 @isTest
 public class TestCQ_SD_Manager_TriggerHandler {
     
-        // Helper method to create a user with a specific permission set
+        
+    // Helper method to create a user with a permission set
     private static User createUserWithPermissionSet() {
         // Retrieve the desired permission set by name
-        PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
-
+        PermissionSet psets = [SELECT Id FROM PermissionSet WHERE Name = 'CQ_SD_Common_Permission_Set' LIMIT 1];
+        
         // Retrieve a profile for the user (replace 'Standard User' with the actual profile name)
-        Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
-
+        Profile pro = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1]; 
+        
         // Create a new user with specified attributes
-        User u = new User(
-            ProfileId = p.Id,
+        User user = new User(
+            ProfileId = pro.Id,
             Alias = 'standt',
             Email = 'standarduser@testorg.com',
             EmailEncodingKey = 'UTF-8',
@@ -22,14 +23,14 @@ public class TestCQ_SD_Manager_TriggerHandler {
             UserName = 'standarduser@testo1rg.com'
         );
         // Insert the user and assign the permission set
-        insert u;
+        insert user;
         PermissionSetAssignment psa = new PermissionSetAssignment(
-            AssigneeId = u.Id,
-            PermissionSetId = ps.Id
+            AssigneeId = user.Id,
+            PermissionSetId = psets.Id
         );
         insert psa;
-
-        return u;  // Return the created user
+        
+        return user;  // Return the created user
     }
 
 

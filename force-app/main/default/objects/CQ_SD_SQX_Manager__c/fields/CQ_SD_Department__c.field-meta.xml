@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CQ_SD_Department__c</fullName>
+    <description>This Field Represent The Department of Managers</description>
+    <externalId>false</externalId>
+    <label>Department</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Configuration Manager</fullName>
+                <default>false</default>
+                <label>Configuration Manager</label>
+            </value>
+            <value>
+                <fullName>UI/UX Manager</fullName>
+                <default>false</default>
+                <label>UI/UX Manager</label>
+            </value>
+            <value>
+                <fullName>Development Manager</fullName>
+                <default>false</default>
+                <label>Development Manager</label>
+            </value>
+            <value>
+                <fullName>CR Manager</fullName>
+                <default>false</default>
+                <label>CR Manager</label>
+            </value>
+            <value>
+                <fullName>HR Manager</fullName>
+                <default>false</default>
+                <label>HR Manager</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
