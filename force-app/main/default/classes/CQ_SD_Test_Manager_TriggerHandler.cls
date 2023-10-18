@@ -1,5 +1,5 @@
 @isTest
-public class TestCQ_SD_Manager_TriggerHandler {
+public class CQ_SD_Test_Manager_TriggerHandler {
     
         
     // Helper method to create a user with a permission set

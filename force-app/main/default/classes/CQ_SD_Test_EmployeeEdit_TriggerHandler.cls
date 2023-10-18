@@ -1,5 +1,5 @@
 @isTest
-public class TestCQ_SD_EmployeeEdit_TriggerHandler {
+public class CQ_SD_Test_EmployeeEdit_TriggerHandler {
 
     // Helper method to create a user with a permission set
     private static User createUserWithPermissionSet() {

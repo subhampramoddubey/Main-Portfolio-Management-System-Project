@@ -1,5 +1,5 @@
 @isTest
-public class TestCQ_SD_Part_Family_Class {
+public class CQ_SD_Test_Part_Family_Class {
     
     // Helper method to create a user with a permission set
     private static User createUserWithPermissionSet() {
