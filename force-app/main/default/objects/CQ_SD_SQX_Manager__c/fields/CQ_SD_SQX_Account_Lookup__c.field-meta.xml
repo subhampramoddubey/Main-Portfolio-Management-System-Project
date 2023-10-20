@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CQ_SD_SQX_Account_Lookup__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field is Lookup to Account</description>
+    <externalId>false</externalId>
+    <label>Account Lookup</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Supplier</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.compliancequest__Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Managers</relationshipLabel>
+    <relationshipName>Managers</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

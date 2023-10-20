@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CQ_SD_Requirement_Status__c</fullName>
+    <description>represent the Requirement Status of manager</description>
+    <externalId>false</externalId>
+    <label>Requirement Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Application Received( Draft )</fullName>
+                <default>true</default>
+                <label>Application Received( Draft )</label>
+            </value>
+            <value>
+                <fullName>Application In Progress</fullName>
+                <default>false</default>
+                <label>Application In Progress</label>
+            </value>
+            <value>
+                <fullName>Application Completed</fullName>
+                <default>false</default>
+                <label>Application Completed</label>
+            </value>
+            <value>
+                <fullName>Application Closed</fullName>
+                <default>false</default>
+                <label>Application Closed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

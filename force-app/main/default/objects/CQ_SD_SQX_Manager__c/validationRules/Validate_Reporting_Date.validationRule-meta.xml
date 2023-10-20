@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Reporting_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>CQ_SD_Reporting_Date__c  &gt;=  CQ_SD_Joinning_Date__c</errorConditionFormula>
+    <errorMessage>Reporting Date Cannot be Greater then Joinning Date</errorMessage>
+</ValidationRule>
